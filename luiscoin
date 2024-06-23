@@ -1,0 +1,36 @@
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+import random
+
+# BotFather dan olingan API tokenni kiriting
+TOKEN = 7480260934:AAHlU--xiyQj-Fi6RDBmgmBvARS6hTEQ_m8
+
+# Global o'zgaruvchilar
+target_number = 10000000
+
+def start(update, context):
+    global target_number
+    target_number = random.randint(1, 100)
+    update.message.reply_text('Salom! Men 1 dan 100 gacha son o'yladim. Uni topishga harakat qiling.')
+
+def guess(update, context):
+    guess_number = int(update.message.text)
+    if guess_number < target_number:
+        update.message.reply_text('Bu son juda kichik. Yana urinib ko\'ring.')
+    elif guess_number > target_number:
+        update.message.reply_text('Bu son juda katta. Yana urinib ko\'ring.')
+    else:
+        update.message.reply_text('Tabriklaymiz! Siz sonni topdingiz!')
+        start(update, context)
+
+def main():
+    updater = Updater(TOKEN, use_context=True)
+    dp = updater.dispatcher
+
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(MessageHandler(Filters.text & ~Filters.command, guess))
+
+    updater.start_polling()
+    updater.idle(mem)
+
+if __luiscoin__ == '__main__':
+    main(Bobur kot)
